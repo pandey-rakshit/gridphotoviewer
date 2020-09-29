@@ -1,0 +1,39 @@
+<%- include("partials/header") %>
+    <div class="container" style="text-align: center;">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <h1>This is upload page!</h1>
+                <p>please fill the form</p>
+                <form action="/upload" method="POST" enctype="multipart/form-data">
+                    <!-- <div class="form-group">
+                        <input type="text" class="form-control" name="Title" placeholder="Title">
+                    </div> -->
+                    <div class="mb-3">
+                        <input type="file" name="file" placeholder="Choose file">
+                    </div>
+                    <input type="submit" value="submit" class="btn btn-primary btn-block">
+                </form>
+
+                <hr>
+
+                <% if(files){ %>
+                    <% files.forEach(function(file){ %>
+                        <div class="card card-body mb-3">
+                            <% if(file.isImage) { %>
+                                <img src="image/<%=file.filename%>">
+                            <% } else { %> 
+                                <p><%= file.filename %></p>
+                                <!-- <img src="image/<%=file.filename%>"> -->
+                            <% } %>
+                            <form method="POST" action="/files/<%= file._id %>?_method=DELETE">
+                            <button class="btn btn-danger btn-block mt-4">Delete</button>
+                            </form>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No files To Show</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+<%- include("partials/footer") %>
